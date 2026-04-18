@@ -14,18 +14,18 @@ void Slot::setItem(ItemAbstrato* item) {
         if (this->item->getEmpilhavel()==0){
             this->setQuantidade(1);
         }
-    } else printf("Slot já possui item\n");
+    } else std::cout << "Slot já possui item"<< std::endl;
 }
 
 ItemAbstrato* Slot::getItem() {
     if(!estaVazio()) {
         return this->item;
     }
-    printf("Slot vazio\n");
+    std::cout<<"Slot vazio\n" << std::endl;
     return nullptr;
 }
 
-//Se é empilhavel adiciona
+//Se é empilhavel é adicionado no slot
 bool Slot::setQuantidade(int quantidade) {
     if(this->item->getEmpilhavel()) {
         if(getQuantidade() + quantidade <= capacidade) {
