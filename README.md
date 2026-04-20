@@ -83,6 +83,7 @@ Demonstração interativa de como o sistema funciona:
 - Menu para adicionar e remover itens
 - `atualizarInventario()` — imprime uma representação visual do inventário em ASCII a cada atualização, exibindo o index de cada slot ocupado para facilitar a visualização
 
+- Cada item printado no terminal tem o formato `[nome^quantidade]`, ex: [pip-boy^1] (um pip-boy)
 ---
 
 ### Relações entre Classes
