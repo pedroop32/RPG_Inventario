@@ -76,7 +76,7 @@ Gerencia um array privado de `Slot` com capacidade definida como uma constante n
 
 ---
 
-### Main.cpp
+### index.cpp
 Demonstração interativa de como o sistema funciona:
 - Criação de um personagem
 - Criação dos itens disponíveis
@@ -104,4 +104,8 @@ Personagem [composição]→  Inventario[composição]→  Slot[associação]→
 - O inventário foi pensado como uma estrutura de múltiplos slots que gerencia os itens que o personagem possui. O tamanho foi definido como uma constante na própria classe, já que na maioria dos jogos o jogador não faz essa escolha (exeto quando é uma mecanica do jogo)
 - A classe `ItemAbstrato` é abstrata para facilitar a criação e padronização dos itens e permitir a adição de novas funcionalidades futuras. O slot referencia `ItemAbstrato`, aceitando qualquer item concreto sem precisar conhecê-lo diretamente. O método `usar()` foi definido como virtual puro para tornar `ItemAbstrato` não instanciável e garantir que itens futuros implementem seu próprio comportamento. Obs: nenhum item possui comportamento por enquanto.
 - O personagem compõe o inventário, pois não faz sentido os dois existirem independentemente.
-- Na main foi implementado um menu interativo onde o usuário adiciona e remove itens, com uma representação visual simples do inventário em ASCII atualizada a cada ação.
+- No index foi implementado um menu interativo onde o usuário adiciona e remove itens, com uma representação visual simples do inventário em ASCII atualizada a cada ação.
+
+
+### Rodar o projeto
+- Para compilar no linux: `g++ **/*.cpp index.cpp -o run.exe`
