@@ -5,7 +5,7 @@
 
 class ItemPocao : public ItemAbstrato {
 public:
-    ItemPocao(int id, Tipo tipo, bool empilhavel);
+    ItemPocao(int id, Tipo tipo, bool empilhavel, std::string nome);
     void usar() override;
 };
 

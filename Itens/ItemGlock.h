@@ -5,7 +5,7 @@
 
 class ItemGlock : public ItemAbstrato {
 public:
-    ItemGlock(int id, Tipo tipo, bool empilhavel);
+    ItemGlock(int id, Tipo tipo, bool empilhavel, std::string nome);
     void usar() override;
 };
 

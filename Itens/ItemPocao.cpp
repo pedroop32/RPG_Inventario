@@ -1,9 +1,9 @@
 #include "ItemPocao.h"
 
-ItemPocao::ItemPocao(int id, Tipo tipo, bool empilhavel) : ItemAbstrato(id, tipo, empilhavel) {
+ItemPocao::ItemPocao(int id, Tipo tipo, bool empilhavel, std::string nome) : ItemAbstrato(id, tipo, empilhavel, nome) {
     //construtor vazio, pois os parametros são gerenciados pelo pai(ItemAbstrato)
 }
 
-void ItemAbstrato::usar(){
+void ItemPocao::usar(){
     //Vazio, para alguma implementação futura
 }

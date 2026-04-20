@@ -29,7 +29,6 @@ RPG_Inventario/
 │
 └── main.cpp
 ```
-
 ---
 
 ### Organização do Sistema
@@ -38,9 +37,12 @@ RPG_Inventario/
 
 A hierarquia de itens segue o padrão de herança com a classe abstrata. `ItemAbstrato` define um padrão para os outros itens, e cada subclasse representa um item concreto com seu próprio comportamento de empilhamento.
 
-Cada item possui: identificador único (`id`) que os diferencia, enum que categoriza o item (`tipo`) que especifica se um item é material, arma, consumível etc., e uma flag que define o comportamento no inventário (se é `empilhável` ou item não empilhável).
-Possui método virtual usar() para definir a usagem de cada item individualmente
+Cada item possui: identificador único (`id`) que os diferencia, enum que categoriza o item (`tipo`) que especifica se um item é arma, consumível, acessório etc., e uma flag que define o comportamento no inventário (se é `empilhável` ou não).
+Possui método virtual `usar()` para definir o comportamento de cada item individualmente.
 Foram criados 4 itens como exemplo.
+
+Criei uma variável adicional chamada `nome`, pois precisava para identificar os itens no terminal.
+
 ---
 
 ### Inventário/
@@ -48,20 +50,21 @@ Foram criados 4 itens como exemplo.
 ### Inventario/Slot.cpp
 
 É a unidade básica do inventário. Cada slot possui uma regra de armazenamento:
-- Até **64 unidades** de um item empilhável, ou
+- Até **64 unidades** de um item empilhável (esse valor é uma constante na classe), ou
 - **1 unidade** de um item não empilhável
 
 `Slot` referencia `ItemAbstrato`, aceitando qualquer item concreto.
 
-obs: O slot é somente uma unidade de armazenamento, a validação e gerenciamento é responsabilidade do iventário
+obs: O slot é somente uma unidade de armazenamento; a validação e gerenciamento são responsabilidade do inventário.
 
 ### Inventario/Inventario.cpp
 
-Gerencia um array de `Slot` com capacidade definida como uma constante na classe. As funções que tornam o inventário funcional são:
+Gerencia um array privado de `Slot` com capacidade definida como uma constante na classe. As funções que tornam o inventário funcional são:
 
-- `adicionarItem(ItemId, int quantidade)` — empilha em slots existentes; se o slot atingir o seu máximo (sendo item empilhável ou não), ocupa um novo slot
-- `removerItem(ItemId, int quantidade)` — remove a quantidade informada, atualizando os slots afetados
-- `buscarSlot(ItemId)` — procura um slot com o mesmo item
+- `adicionarItem(item, quantidade)` — empilha em slots existentes; se o slot atingir o seu máximo (sendo item empilhável ou não), ocupa um novo slot
+- `removerItem(index, quantidade)` — remove a quantidade informada do slot no index especificado; se a quantidade for maior que a existente, o slot é limpo completamente
+- `buscarSlotParcial(itemId)` — procura o primeiro slot com o mesmo item que ainda não atingiu a capacidade máxima
+- `getInventario()` — retorna o array de slots para acesso externo; o array é privado, acessado via getter para preservar o encapsulamento da classe
 
 ---
 
@@ -69,18 +72,19 @@ Gerencia um array de `Slot` com capacidade definida como uma constante na classe
 
 `Personagem` compõe um `Inventario`, um depende do outro para existir. Possui:
 - `nome` — identificação do personagem
-- `inventario` — capacidade definida na classe;
+- `inventario` — capacidade definida na classe
 
 ---
 
-### Personagem/Main.cpp
-Demonstração de como o sistema funciona com
+### Main.cpp
+Demonstração interativa de como o sistema funciona:
 - Criação de um personagem
-- Criação do inventário
-- Inserção de itens empilháveis e não empilháveis
-- Remoção de itens
-- `atualizarInventario()` — printa uma representação visual do inventário em ASCII toda vez que um item é atualizado (removido/adicionado), para que fique fácil acompanhar as alterações
+- Criação dos itens disponíveis
+- Menu para adicionar e remover itens
+- `atualizarInventario()` — imprime uma representação visual do inventário em ASCII a cada atualização, exibindo o index de cada slot ocupado para facilitar a visualização
+
 ---
+
 ### Relações entre Classes
 ```
 Personagem [composição]→  Inventario[composição]→  Slot[associação]→  ItemAbstrato; 
@@ -89,15 +93,15 @@ Personagem [composição]→  Inventario[composição]→  Slot[associação]→
 ---
 
 ### Observações:
+
 #### Melhorias além do sistema mínimo pedido
-- Acredito que uma descrição e uma representação visual para os itens deixaria o inventário mais interativo
-- Atualmente não é possível mover itens pelo inventário; seria interessante ter a capacidade de o usuário poder organizá-lo/mover itens como quiser
-- Implementar uso aos itens e mais parametros se nescessário aos mesmo; ex: O item glock(arma) usaria munição para funcionar
+- Uma descrição e representação visual para os itens deixaria o inventário mais interativo
+- Atualmente não é possível mover itens pelo inventário; seria interessante o usuário poder organizá-lo como quiser, como empilhar todos os itens iguais, pois com o tempo o inventário tende a ficar bagunçado por conta das proprias funções de adicionar e excluir itens
+- Implementar o comportamento de `usar()` nos itens e adicionar mais parâmetros se necessário; ex: o item Glock (arma) consumiria munição para funcionar
 
 #### Justificativa para modelagem
 - Nomes de classes e funções são autoexplicativos, e cada função foi criada com responsabilidade única para facilitar a compreensão.
-- O inventário foi pensado como uma estrutura de múltiplos slots que gerencia os itens que o personagem possui. Achei melhor definir seu tamanho na própria classe, como uma constante, já que na maioria dos jogos o jogador não faz essa escolha, a menos que seja uma mecânica do jogo, o que pode ser uma função futura. 
-- A classe ItemAbstrato é uma classe abstrata para facilitar a criação, padronização dos itens e a possibilidade de adição de novas funcionalidades futuras, além de servir como uma unidade de slot na referenciação (o slot sabe como é um item, mas não precisa saber qual item possui). O método usar() foi definido como virtual puro para tornar ItemAbstrato não instanciável e garantir que itens futuros implementem seu próprio comportamento. Atualmente nenhum item possui comportamento implementado.
+- O inventário foi pensado como uma estrutura de múltiplos slots que gerencia os itens que o personagem possui. O tamanho foi definido como uma constante na própria classe, já que na maioria dos jogos o jogador não faz essa escolha (exeto quando é uma mecanica do jogo)
+- A classe `ItemAbstrato` é abstrata para facilitar a criação e padronização dos itens e permitir a adição de novas funcionalidades futuras. O slot referencia `ItemAbstrato`, aceitando qualquer item concreto sem precisar conhecê-lo diretamente. O método `usar()` foi definido como virtual puro para tornar `ItemAbstrato` não instanciável e garantir que itens futuros implementem seu próprio comportamento. Obs: nenhum item possui comportamento por enquanto.
 - O personagem compõe o inventário, pois não faz sentido os dois existirem independentemente.
-- Na main foi implementada uma representação visual simples do inventário, onde foram usados alguns dos itens criados.
----
+- Na main foi implementado um menu interativo onde o usuário adiciona e remove itens, com uma representação visual simples do inventário em ASCII atualizada a cada ação.

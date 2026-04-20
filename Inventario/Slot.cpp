@@ -10,11 +10,7 @@ bool Slot::estaVazio() {
 void Slot::setItem(ItemAbstrato* item) {
     if(estaVazio()) {
         this->item = item;
-        //se não for empilhavel a quantidade será 1 por padrão
-        if (this->item->getEmpilhavel()==0){
-            this->setQuantidade(1);
-        }
-    } else std::cout << "Slot já possui item"<< std::endl;
+    } else std::cout << "Slot já possui item\n"<< std::endl;
 }
 
 ItemAbstrato* Slot::getItem() {
@@ -25,17 +21,23 @@ ItemAbstrato* Slot::getItem() {
     return nullptr;
 }
 
-//Se é empilhavel é adicionado no slot
+
 bool Slot::setQuantidade(int quantidade) {
-    if(this->item->getEmpilhavel()) {
-        if(getQuantidade() + quantidade <= capacidade) {
-            this->itemQuant += quantidade;
-            return true;
-        } else return false;
+    if(item==nullptr) return false;
+    if(item->getEmpilhavel()) {
+        this->itemQuant = quantidade;
+        return true;
+    } else {
+        this->itemQuant =1;
     }
-    return false; // não empilhável/ responsabilidade do Inventário
+    return false;  
 }
 
 int Slot::getQuantidade() {
     return this->itemQuant;
+}
+
+void Slot::limparSlot(){
+    this->itemQuant = 0;
+    this->item = nullptr;
 }
