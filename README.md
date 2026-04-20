@@ -1,4 +1,4 @@
-# RPG_Inventario
+# Documentação do Projeto
 
 ## Estrutura do Projeto
 
