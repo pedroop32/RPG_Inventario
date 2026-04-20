@@ -27,7 +27,7 @@ RPG_Inventario/
 │   ├── Personagem.h
 │   └── Personagem.cpp
 │
-└── main.cpp
+└── index.cpp
 ```
 ---
 
