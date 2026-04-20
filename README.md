@@ -101,11 +101,12 @@ Personagem [composição]→  Inventario[composição]→  Slot[associação]→
 
 #### Justificativa para modelagem
 - Nomes de classes e funções são autoexplicativos, e cada função foi criada com responsabilidade única para facilitar a compreensão.
-- O inventário foi pensado como uma estrutura de múltiplos slots que gerencia os itens que o personagem possui. O tamanho foi definido como uma constante na própria classe, já que na maioria dos jogos o jogador não faz essa escolha (exeto quando é uma mecanica do jogo)
+- O inventário foi pensado como uma estrutura de múltiplos slots que gerencia os itens que o personagem possui. O tamanho foi definido como uma constante na própria classe, já que na maioria dos jogos o jogador não faz essa escolha (exceto quando é uma mecanica do jogo)
 - A classe `ItemAbstrato` é abstrata para facilitar a criação e padronização dos itens e permitir a adição de novas funcionalidades futuras. O slot referencia `ItemAbstrato`, aceitando qualquer item concreto sem precisar conhecê-lo diretamente. O método `usar()` foi definido como virtual puro para tornar `ItemAbstrato` não instanciável e garantir que itens futuros implementem seu próprio comportamento. Obs: nenhum item possui comportamento por enquanto.
 - O personagem compõe o inventário, pois não faz sentido os dois existirem independentemente.
 - No index foi implementado um menu interativo onde o usuário adiciona e remove itens, com uma representação visual simples do inventário em ASCII atualizada a cada ação.
 
 
 ### Rodar o projeto
-- Para compilar no linux: `g++ **/*.cpp index.cpp -o run.exe`
+- Para compilar no linux: `g++ **/*.cpp index.cpp -o inventario.exe`
+- rodar: ./inventario.exe

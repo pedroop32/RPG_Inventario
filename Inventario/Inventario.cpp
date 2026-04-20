@@ -82,15 +82,18 @@ void Inventario::adicionarItem(ItemAbstrato* item, int quantidade){
 //A remoção do item é por index
 //Como eu removo por slot se for removido uma quantidade maior que CAPACIDADE_SLOT 
 //o item será automaticamente removido
+//Será removido o modulo da quantidade
 void Inventario::removerItem(int index, int quantidade){
     if(index>=INV_TAMANHO){
-        std::cout<<"Digite um index valido\n" << std::endl;
+        std::cout<<"\nDigite um index valido\n" << std::endl;
         return;
     }
     if(inventario[index].estaVazio()){
-        //Já estava vazio
+        std::cout<<"\nSlot vazio\n" << std::endl;
         return;
     } 
+    if(quantidade<0) quantidade *= -1;
+
     int resultado =inventario[index].getQuantidade()-quantidade;
     if (resultado<=0){
         inventario[index].limparSlot();
