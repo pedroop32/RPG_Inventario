@@ -61,10 +61,12 @@ obs: O slot é somente uma unidade de armazenamento; a validação e gerenciamen
 
 Gerencia um array privado de `Slot` com capacidade definida como uma constante na classe. As funções que tornam o inventário funcional são:
 
-- `adicionarItem(item, quantidade)` — empilha em slots existentes; se o slot atingir o seu máximo (sendo item empilhável ou não), ocupa um novo slot
-- `removerItem(index, quantidade)` — remove a quantidade informada do slot no index especificado; se a quantidade for maior que a existente, o slot é limpo completamente
-- `buscarSlotParcial(itemId)` — procura o primeiro slot com o mesmo item que ainda não atingiu a capacidade máxima
-- `getInventario()` — retorna o array de slots para acesso externo; o array é privado, acessado via getter para preservar o encapsulamento da classe
+
+- `slotVazio()`: busca slots vazios
+- `buscarSlotParcial`: busca por id o primeiro slot com o mesmo item que ainda não foi preenchido
+- `adicionarItem` — adiciona item empilhavel a slots existentes; se o slot atingir o seu máximo (sendo item empilhável ou não), ocupa um novo slot
+- `removerItem(index, quantidade)` — remove a quantidade informada do slot no index especificado; se a quantidade for maior que a existente, o slot é limpo completamente. (A quantidade pode ser negativa ou positiva pois é feito o modulo da quantiade para não ter confusão)
+- `getInventario()` — retorna o array de slots para acesso externo;
 
 ---
 
@@ -83,7 +85,7 @@ Demonstração interativa de como o sistema funciona:
 - Menu para adicionar e remover itens
 - `atualizarInventario()` — imprime uma representação visual do inventário em ASCII a cada atualização, exibindo o index de cada slot ocupado para facilitar a visualização
 
-- Cada item printado no terminal tem o formato `[nome^quantidade]`, ex: [pip-boy^1] (um pip-boy)
+- Cada item printado no terminal tem o formato `[nome^quantidade]`, ex: [pip-boy^1] (um pip-boy), [Poção^32](32 poções)
 ---
 
 ### Relações entre Classes
@@ -97,13 +99,13 @@ Personagem [composição]→  Inventario[composição]→  Slot[associação]→
 
 #### Melhorias além do sistema mínimo pedido
 - Uma descrição e representação visual para os itens deixaria o inventário mais interativo
-- Atualmente não é possível mover itens pelo inventário; seria interessante o usuário poder organizá-lo como quiser, como empilhar todos os itens iguais, pois com o tempo o inventário tende a ficar bagunçado por conta das proprias funções de adicionar e excluir itens
+- Atualmente não é possível mover itens pelo inventário; seria interessante o usuário poder organizá-lo como quiser, como organizar por tipo ou juntar todos os itens com mesmo id, pois com o tempo o inventário tende a ficar bagunçado por conta das proprias funções de adicionar e excluir itens
 - Implementar o comportamento de `usar()` nos itens e adicionar mais parâmetros se necessário; ex: o item Glock (arma) consumiria munição para funcionar
 
 #### Justificativa para modelagem
 - Nomes de classes e funções são autoexplicativos, e cada função foi criada com responsabilidade única para facilitar a compreensão.
 - O inventário foi pensado como uma estrutura de múltiplos slots que gerencia os itens que o personagem possui. O tamanho foi definido como uma constante na própria classe, já que na maioria dos jogos o jogador não faz essa escolha (exceto quando é uma mecanica do jogo)
-- A classe `ItemAbstrato` é abstrata para facilitar a criação e padronização dos itens e permitir a adição de novas funcionalidades futuras. O slot referencia `ItemAbstrato`, aceitando qualquer item concreto sem precisar conhecê-lo diretamente. O método `usar()` foi definido como virtual puro para tornar `ItemAbstrato` não instanciável e garantir que itens futuros implementem seu próprio comportamento. Obs: nenhum item possui comportamento por enquanto.
+- A classe `ItemAbstrato` é abstrata para facilitar a criação e padronização dos itens e permitir a adição de novas funcionalidades futuras. O slot referencia `ItemAbstrato`, aceitando qualquer item concreto sem precisar conhecê-lo diretamente. O método `usar()` foi definido como virtual para tornar `ItemAbstrato` não instanciável e garantir que itens futuros implementem seu próprio comportamento. Obs: nenhum item possui comportamento por enquanto.
 - O personagem compõe o inventário, pois não faz sentido os dois existirem independentemente.
 - No index foi implementado um menu interativo onde o usuário adiciona e remove itens, com uma representação visual simples do inventário em ASCII atualizada a cada ação.
 

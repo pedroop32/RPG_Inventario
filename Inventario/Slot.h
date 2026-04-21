@@ -16,7 +16,7 @@ public:
     void setItem(ItemAbstrato* item);
     ItemAbstrato* getItem();
     
-    bool setQuantidade(int quantidade); //true se foi possivel adicionar, false se não
+    void setQuantidade(int quantidade);
     int getQuantidade();
 
     void limparSlot();

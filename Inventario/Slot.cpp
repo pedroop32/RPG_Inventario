@@ -22,15 +22,15 @@ ItemAbstrato* Slot::getItem() {
 }
 
 
-bool Slot::setQuantidade(int quantidade) {
-    if(item==nullptr) return false;
+void Slot::setQuantidade(int quantidade) {
+    if(item==nullptr) return;
     if(item->getEmpilhavel()) {
         this->itemQuant = quantidade;
-        return true;
+        return;
     } else {
         this->itemQuant =1;
+        return;
     }
-    return false;  
 }
 
 int Slot::getQuantidade() {
