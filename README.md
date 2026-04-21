@@ -64,17 +64,17 @@ Gerencia um array privado de `Slot` com capacidade definida como uma constante n
 
 - `slotVazio()`: busca slots vazios
 - `buscarSlotParcial`: busca por id o primeiro slot com o mesmo item que ainda não foi preenchido
-- `adicionarItem` — adiciona item empilhavel a slots existentes; se o slot atingir o seu máximo (sendo item empilhável ou não), ocupa um novo slot
-- `removerItem(index, quantidade)` — remove a quantidade informada do slot no index especificado; se a quantidade for maior que a existente, o slot é limpo completamente. (A quantidade pode ser negativa ou positiva pois é feito o modulo da quantiade para não ter confusão)
-- `getInventario()` — retorna o array de slots para acesso externo;
+- `adicionarItem`: adiciona item empilhavel a slots existentes; se o slot atingir o seu máximo (sendo item empilhável ou não), ocupa um novo slot
+- `removerItem(index, quantidade)`: remove a quantidade informada do slot no index especificado; se a quantidade for maior que a existente, o slot é limpo completamente. (A quantidade pode ser negativa ou positiva pois é feito o modulo da quantiade para não ter confusão)
+- `getInventario()`: retorna o array de slots para acesso externo;
 
 ---
 
 ### Personagem/Personagem.cpp
 
 `Personagem` compõe um `Inventario`, um depende do outro para existir. Possui:
-- `nome` — identificação do personagem
-- `inventario` — capacidade definida na classe
+- `nome`: identificação do personagem
+- `inventario`: capacidade definida na classe
 
 ---
 
@@ -83,7 +83,7 @@ Demonstração interativa de como o sistema funciona:
 - Criação de um personagem
 - Criação dos itens disponíveis
 - Menu para adicionar e remover itens
-- `atualizarInventario()` — imprime uma representação visual do inventário em ASCII a cada atualização, exibindo o index de cada slot ocupado para facilitar a visualização
+- `atualizarInventario()`: imprime uma representação visual do inventário em ASCII a cada atualização, exibindo o index de cada slot ocupado para facilitar a visualização
 
 - Cada item printado no terminal tem o formato `[nome^quantidade]`, ex: [pip-boy^1] (um pip-boy), [Poção^32](32 poções)
 ---
