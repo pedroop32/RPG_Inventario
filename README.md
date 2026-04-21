@@ -85,7 +85,7 @@ Demonstração interativa de como o sistema funciona:
 - Menu para adicionar e remover itens
 - `atualizarInventario()`: imprime uma representação visual do inventário em ASCII a cada atualização, exibindo o index de cada slot ocupado para facilitar a visualização
 
-- Cada item printado no terminal tem o formato `[nome^quantidade]`, ex: [pip-boy^1] (um pip-boy), [Poção^32](32 poções)
+- Cada item printado no terminal tem o formato `[[index] nome^quantidade]`, ex: [[3]pip-boy^1] (um pip-boy no index 3), [[0]Poção^32](32 poções no primeiro index)
 ---
 
 ### Relações entre Classes
@@ -98,16 +98,19 @@ Personagem [composição]→  Inventario[composição]→  Slot[associação]→
 ### Observações:
 
 #### Melhorias além do sistema mínimo pedido
+
 - Uma descrição e representação visual para os itens deixaria o inventário mais interativo
-- Atualmente não é possível mover itens pelo inventário; seria interessante o usuário poder organizá-lo como quiser, como organizar por tipo ou juntar todos os itens com mesmo id, pois com o tempo o inventário tende a ficar bagunçado por conta das proprias funções de adicionar e excluir itens
-- Implementar o comportamento de `usar()` nos itens e adicionar mais parâmetros se necessário; ex: o item Glock (arma) consumiria munição para funcionar
+- Atualmente não é possível mover itens pelo inventário; seria interessante o usuário poder organizá-lo como quiser, como organizar por tipo ou juntar todos os itens com o mesmo id, pois com o tempo o inventário tende a ficar bagunçado por conta das próprias funções de adicionar e excluir itens
+- Implementar o comportamento de usar() nos itens e adicionar mais parâmetros, se necessário; ex: o item Glock (arma) consumiria munição para funcionar
 
 #### Justificativa para modelagem
+
 - Nomes de classes e funções são autoexplicativos, e cada função foi criada com responsabilidade única para facilitar a compreensão.
-- O inventário foi pensado como uma estrutura de múltiplos slots que gerencia os itens que o personagem possui. O tamanho foi definido como uma constante na própria classe, já que na maioria dos jogos o jogador não faz essa escolha (exceto quando é uma mecanica do jogo)
-- A classe `ItemAbstrato` é abstrata para facilitar a criação e padronização dos itens e permitir a adição de novas funcionalidades futuras. O slot referencia `ItemAbstrato`, aceitando qualquer item concreto sem precisar conhecê-lo diretamente. O método `usar()` foi definido como virtual para tornar `ItemAbstrato` não instanciável e garantir que itens futuros implementem seu próprio comportamento. Obs: nenhum item possui comportamento por enquanto.
+- O inventário foi pensado como uma estrutura de múltiplos slots que gerencia os itens que o personagem possui. O tamanho foi definido como uma constante na própria classe, já que na maioria dos jogos o jogador não faz essa escolha (exceto quando é uma mecânica do jogo)
+- A classe ItemAbstrato é abstrata para facilitar a criação e padronização dos itens e permitir a adição de novas funcionalidades futuras. O slot referencia ItemAbstrato, aceitando qualquer item concreto sem precisar conhecê-lo diretamente. O método usar() foi definido como virtual para tornar ItemAbstrato não instanciável e garantir que itens futuros implementem seu próprio comportamento. Obs: nenhum item possui comportamento por enquanto.
+- Por enquanto, os itens são armazenados por referência no inventário, podendo múltiplos slots apontarem para o mesmo objeto. Isso funciona enquanto nenhum item possui comportamento próprio com alguma alteração de estado. No futuro, seria necessário criar instâncias independentes.
 - O personagem compõe o inventário, pois não faz sentido os dois existirem independentemente.
-- No index foi implementado um menu interativo onde o usuário adiciona e remove itens, com uma representação visual simples do inventário em ASCII atualizada a cada ação.
+- No index foi implementado um menu onde o usuário adiciona e remove itens, com uma representação visual simples do inventário em ASCII, atualizada a cada ação.
 
 
 ### Rodar o projeto
